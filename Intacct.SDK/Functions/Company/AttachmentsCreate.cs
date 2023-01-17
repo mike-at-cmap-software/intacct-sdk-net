@@ -44,7 +44,14 @@ namespace Intacct.SDK.Functions.Company
                 foreach (IAttachment file in Files)
                 {
                     var fileAttachment = (AttachmentFile) file;
-                    file.WriteXml(fileAttachment.FileData, ref xml);
+                    if(!string.IsNullOrEmpty(fileAttachment.FilePath))
+                    {
+                        file.WriteXml(ref xml);
+                    }
+                    else if(fileAttachment.FileData != null && fileAttachment.FileData.Length > 0)
+                    {
+                        file.WriteXml(fileAttachment.FileData, ref xml);
+                    }
                 }
 
                 xml.WriteEndElement();
