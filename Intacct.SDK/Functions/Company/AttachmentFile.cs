@@ -51,6 +51,7 @@ namespace Intacct.SDK.Functions.Company
         public string Extension;
 
         public string FileName;
+        public byte[] FileData;
 
         public AttachmentFile()
         {
@@ -80,6 +81,23 @@ namespace Intacct.SDK.Functions.Company
                     }
                 }
             }
+
+            xml.WriteEndElement(); //attachment
+            
+        }
+
+        public void WriteXml(byte[] fileData, ref IaXmlWriter xml)
+        {
+            xml.WriteStartElement("attachment");
+
+            // The file name without a period or extension - Ex: Invoice21244
+            // Needs to be unique from other files in attachment record
+            xml.WriteElement("attachmentname", FileName, true);
+
+            // The file extension without a period - Ex: pdf
+            xml.WriteElement("attachmenttype", Extension, true);
+
+            xml.WriteElement("attachmentdata", Convert.ToBase64String(fileData), true);
 
             xml.WriteEndElement(); //attachment
             

@@ -43,7 +43,8 @@ namespace Intacct.SDK.Functions.Company
 
                 foreach (IAttachment file in Files)
                 {
-                    file.WriteXml(ref xml);
+                    var fileAttachment = (AttachmentFile) file;
+                    file.WriteXml(fileAttachment.FileData, ref xml);
                 }
 
                 xml.WriteEndElement();
@@ -53,6 +54,5 @@ namespace Intacct.SDK.Functions.Company
 
             xml.WriteEndElement(); //function
         }
-
     }
 }

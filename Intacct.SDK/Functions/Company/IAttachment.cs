@@ -20,5 +20,6 @@ namespace Intacct.SDK.Functions.Company
     public interface IAttachment : IXmlObject
     {
         new void WriteXml(ref IaXmlWriter xml);
+        new void WriteXml(byte[] fileData, ref IaXmlWriter xml);
     }
 }
